@@ -73,7 +73,7 @@ defmodule Aoc.Y2022.Day02 do
   Following the Elf's instructions for the second column, *what would your total
   score be if everything goes exactly according to your strategy guide?*
   """
-  @strategy_code %{"A" => "A", "B" => "B", "C" => "C", "X" => "A", "Y" => "B", "Z" => "C"}
+  @strategy_code %{"X" => "A", "Y" => "B", "Z" => "C"}
 
   def parse_strategy(input) do
     input
