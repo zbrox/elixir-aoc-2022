@@ -100,6 +100,30 @@ defmodule Aoc.Y2022.Day02 do
     outcome + shape_score(my_shape)
   end
 
+  def calculate_game_score_v2(game) do
+    case game do
+      {elf, "X"} -> 0 + shape_score(losing_shape(elf))
+      {elf, "Y"} -> 3 + shape_score(elf)
+      {elf, "Z"} -> 6 + shape_score(winning_shape(elf))
+    end
+  end
+
+  def losing_shape(shape) do
+    case shape do
+      "A" -> "C"
+      "B" -> "A"
+      "C" -> "B"
+    end
+  end
+
+  def winning_shape(shape) do
+    case shape do
+      "A" -> "B"
+      "B" -> "C"
+      "C" -> "A"
+    end
+  end
+
   def shape_score(shape) do
     case shape do
       "A" -> 1
@@ -121,7 +145,8 @@ defmodule Aoc.Y2022.Day02 do
 
   def part2(input) do
     parse_strategy(input)
-
+    |> Enum.map(fn v -> calculate_game_score_v2(v) end)
+    |> Enum.sum()
   end
 
   def solve_part2() do
