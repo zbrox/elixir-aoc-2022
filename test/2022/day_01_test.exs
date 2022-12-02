@@ -24,4 +24,8 @@ defmodule AocTest.Y2022.Day01 do
   test "part1" do
     assert Day01.part1(@example) == 24000
   end
+
+  test "part2" do
+    assert Day01.part2(@example) == 45000
+  end
 end

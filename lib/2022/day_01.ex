@@ -60,8 +60,26 @@ defmodule Aoc.Y2022.Day01 do
 
   Find the Elf carrying the most Calories. *How many total Calories is that Elf
   carrying?*
+
+  ## --- Part Two ---
+
+  By the time you calculate the answer to the Elves' question, they've already
+  realized that the Elf carrying the most Calories of food might eventually *run
+  out of snacks*.
+
+  To avoid this unacceptable situation, the Elves would instead like to know the
+  total Calories carried by the *top three* Elves carrying the most Calories. That
+  way, even if one of those Elves runs out of snacks, they still have two backups.
+
+  In the example above, the top three Elves are the fourth Elf (with `24000`
+  Calories), then the third Elf (with `11000` Calories), then the fifth Elf (with
+  `10000` Calories). The sum of the Calories carried by these three elves is
+  `*45000*`.
+
+  Find the top three Elves carrying the most Calories. *How many Calories are
+  those Elves carrying in total?*
   """
-  def part1(input) do
+  def elf_calories(input) do
     input
     |> String.trim()
     |> String.split("\n\n")
@@ -72,11 +90,27 @@ defmodule Aoc.Y2022.Day01 do
       end)
       |> Enum.sum()
     end)
+  end
+
+  def part1(input) do
+    elf_calories(input)
     |> Enum.max()
   end
 
   def solve_part1() do
     Helpers.get_input(2022, 1)
     |> part1
+  end
+
+  def part2(input) do
+    elf_calories(input)
+    |> Enum.sort(:desc)
+    |> Enum.take(3)
+    |> Enum.sum()
+  end
+
+  def solve_part2() do
+    Helpers.get_input(2022, 1)
+    |> part2
   end
 end
