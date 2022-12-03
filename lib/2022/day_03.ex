@@ -86,7 +86,7 @@ defmodule Aoc.Y2022.Day03 do
 
   def is_lowercase(char) do
     codepoint = ord(char)
-    ?a < codepoint and codepoint < ?z
+    ?a <= codepoint and codepoint <= ?z
   end
 
   def get_value(char) do
