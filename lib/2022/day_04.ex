@@ -60,6 +60,23 @@ defmodule Aoc.Y2022.Day04 do
 
   *In how many assignment pairs does one range fully contain the other?*
 
+  ## --- Part Two ---
+
+  It seems like there is still quite a bit of duplicate work planned. Instead, the
+  Elves would like to know the number of pairs that *overlap at all*.
+
+  In the above example, the first two pairs (`2-4,6-8` and `2-3,4-5`) don't
+  overlap, while the remaining four pairs (`5-7,7-9`, `2-8,3-7`, `6-6,4-6`, and
+  `2-6,4-8`) do overlap:
+
+  - `5-7,7-9` overlaps in a single section, `7`.
+  - `2-8,3-7` overlaps all of the sections `3` through `7`.
+  - `6-6,4-6` overlaps in a single section, `6`.
+  - `2-6,4-8` overlaps in sections `4`, `5`, and `6`.
+  So, in this example, the number of overlapping assignment pairs is `*4*`.
+
+  *In how many assignment pairs do the ranges overlap?*
+
   """
   def parse_input(input) do
     input
@@ -87,7 +104,7 @@ defmodule Aoc.Y2022.Day04 do
     start..stop
   end
 
-  def ranges_intersect(range1, range2) do
+  def range_contain(range1, range2) do
     if (range1.first <= range2.first and range1.last >= range2.last) or
          (range2.first <= range1.first and range2.last >= range1.last) do
       true
@@ -96,7 +113,30 @@ defmodule Aoc.Y2022.Day04 do
     end
   end
 
+  def ranges_intersect(range1, range2) do
+    range1 = MapSet.new(range1)
+    range2 = MapSet.new(range2)
+
+    intersection = MapSet.intersection(range1, range2)
+
+    MapSet.size(intersection) > 0
+  end
+
   def part1(input) do
+    parse_input(input)
+    |> Enum.filter(fn pair ->
+      [range1, range2] = pair
+      range_contain(range1, range2)
+    end)
+    |> Enum.count()
+  end
+
+  def solve_part1() do
+    Helpers.get_input(2022, 4)
+    |> part1()
+  end
+
+  def part2(input) do
     parse_input(input)
     |> Enum.filter(fn pair ->
       [range1, range2] = pair
@@ -105,8 +145,8 @@ defmodule Aoc.Y2022.Day04 do
     |> Enum.count()
   end
 
-  def solve_part1() do
+  def solve_part2() do
     Helpers.get_input(2022, 4)
-    |> part1()
+    |> part2()
   end
 end
