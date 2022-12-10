@@ -12,4 +12,12 @@ defmodule AocTest.Y2022.Day06 do
     assert Day06.part1("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw") == 11
   end
 
+  test "part2" do
+    assert Day06.part2("mjqjpqmgbljsphdztnvjfqwrcgsmlb") == 19
+    assert Day06.part2("bvwbjplbgvbhsrlpgdmjqwftvncz") == 23
+    assert Day06.part2("nppdvjthqldpwncqszvftbrmjlhg") == 23
+    assert Day06.part2("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg") == 29
+    assert Day06.part2("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw") == 26
+  end
+
 end

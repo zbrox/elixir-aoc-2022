@@ -57,21 +57,55 @@ defmodule Aoc.Y2022.Day06 do
   *How many characters need to be processed before the first start-of-packet
   marker is detected?*
 
+  ## --- Part Two ---
+
+  Your device's communication system is correctly detecting packets, but still
+  isn't working. It looks like it also needs to look for *messages*.
+
+  A *start-of-message marker* is just like a start-of-packet marker, except it
+  consists of *14 distinct characters* rather than 4.
+
+  Here are the first positions of start-of-message markers for all of the above
+  examples:
+
+  - `mjqjpqmgbljsphdztnvjfqwrcgsmlb`: first marker after character `*19*`
+  - `bvwbjplbgvbhsrlpgdmjqwftvncz`: first marker after character `*23*`
+  - `nppdvjthqldpwncqszvftbrmjlhg`: first marker after character `*23*`
+  - `nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg`: first marker after character `*29*`
+  - `zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw`: first marker after character `*26*`
+
+  *How many characters need to be processed before the first start-of-message
+  marker is detected?*
   """
 
-  def part1(input) do
-    {_, idx} = String.codepoints(input)
-    |> Enum.chunk_every(4, 1)
+  def find_sequence(buffer, size) do
+    {_, idx} = buffer
+    |> Enum.chunk_every(size, 1)
     |> Enum.with_index()
     |> Enum.find(fn {chunk, _idx} ->
       length(Enum.uniq(chunk)) == length(chunk)
     end)
 
-    idx + 4
+    idx + size
+  end
+
+  def part1(input) do
+    String.codepoints(input)
+    |> find_sequence(4)
   end
 
   def solve_part1() do
     Helpers.get_input(2022, 6)
     |> part1()
+  end
+
+  def part2(input) do
+    String.codepoints(input)
+    |> find_sequence(14)
+  end
+
+  def solve_part2() do
+    Helpers.get_input(2022, 6)
+    |> part2()
   end
 end
